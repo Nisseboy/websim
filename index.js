@@ -24,6 +24,10 @@ app.get("/previewServer/*", (req, res) => {
 });
 
 
+app.get("/scoop", (req, res) => {
+  res.send("you're a bitch");
+});
+
 app.post("/uploadFiles", (req, res) => {
   let files = req.body.files;
   let token = req.body.token;
@@ -49,7 +53,7 @@ async function sendSpoofFile(res, name, content) {
   let text = content;
 
   res.setHeader("Content-type", mime.lookup(name));
-  
+
   if (text.startsWith("data:")) {
     content = Buffer.from(content.split(",")[1], 'base64');
     res.send(content);
