@@ -22,9 +22,8 @@ const insertRows = async (uuid, files) => {
   try {
     let payload = uuid + "," + JSON.stringify(files);
 
-    await client.query("CREATE TABLE IF NOT EXISTS users(token UUID PRIMARY KEY, files STRING)");
-    await client.query("INSERT INTO users IFNULL (token, files) VALUES (" + payload + ")");
-    await client.query("UPDATE users IF EXISTS (token, files) VALUES (" + payload + ")");
+    await client.query("CREATE TABLE IF NOT EXISTS users(id UUID PRIMARY KEY, files STRING)");
+    await client.query("UPSERT INTO users (id, files) VALUES (" + payload + ")");
   } catch (err) {
     console.log(err.stack);
   } finally {
