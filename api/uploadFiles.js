@@ -20,7 +20,7 @@ const insertRows = async (uuid, files) => {
   }
   const client = await pool.connect();
   try {
-    let payload = uuid + "," + JSON.stringify(files);
+    let payload = uuid + ",'" + JSON.stringify(files) + "'";
 
     await client.query("CREATE TABLE IF NOT EXISTS users(id UUID PRIMARY KEY, files STRING)");
     await client.query("UPSERT INTO users (id, files) VALUES (" + payload + ")");
