@@ -34,10 +34,12 @@ function load() {
 
   selectedFile = state.selectedFile;
 
-  changeFile(fromPath(state.editors[0].currentFile), 0);
+  if (state.editors[0].currentFile)
+    changeFile(fromPath(state.editors[0].currentFile), 0);
   editors[0].opened = state.editors[0].opened;
 
-  changeFile(fromPath(state.editors[1].currentFile), 1);
+  if (state.editors[1].currentFile)
+    changeFile(fromPath(state.editors[1].currentFile), 1);
   editors[1].opened = state.editors[1].opened;
 
   renderFiles();
