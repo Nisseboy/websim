@@ -20,7 +20,7 @@ const insertRows = async () => {
   }
   const client = await pool.connect();
   try {
-    await client.query("INSERT INTO table (col1, col2) VALUES (val1, val2)"");
+    await client.query("INSERT INTO table (col1, col2) VALUES (val1, val2)");
   } catch (err) {
     console.log(err.stack);
   } finally {
