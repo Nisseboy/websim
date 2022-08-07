@@ -47,15 +47,28 @@ function load() {
 
 
 async function serverSave() {
-  let val = fetch("api/uploadFiles", {
-    method: "POST",
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      a: 3
-    })
-  });
+  let sendFiles = [];
+  root.iterate(file=>{
+    file.path = file.path.split("/");
+    file.path.shift();
+    file.path.shift();
+    file.path = file.path.join("/");
 
-  console.log(val);
+    sendFiles.push({path: file.path, data: file.data || file.code});
+  }, true);
+
+
+  res = await fetch(window.location.origin + "/api/uploadFiles", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      files: sendFiles
+    })
+  }).then(a=>a.json());
+
+  console.log(res);
 }
 function serverLoad() {
 

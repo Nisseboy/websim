@@ -28,11 +28,9 @@ document.addEventListener("keydown", e=>{
 
 let root = new Files("ROOT").addChildren([
   new Files("testProj").addChildren([
-    new Files("folder").addChildren([
-      new Files("index.js", "alert(1)"),
-    ]),
-    new Files("index.html", "<script src=\"index.js\"></script>"),
-    new Files("index.js", "alert(1)"),
+    new Files("index.html", ""),
+    new Files("index.js", ""),
+    new Files("style.css", ""),
   ])
 ]);
 

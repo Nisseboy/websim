@@ -276,8 +276,8 @@ function highlightSelected() {
   root.iterate(file => {
     file.hierarchyElement.classList.remove("selected");
   });
-
-  fromPath(selectedFile).hierarchyElement.classList.add("selected");
+  if (fromPath(selectedFile))
+    fromPath(selectedFile).hierarchyElement.classList.add("selected");
 }
 
 function getSuffix(name) {

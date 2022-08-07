@@ -74,7 +74,7 @@ async function startPreview() {
     file.path.shift();
     file.path = file.path.join("/");
 
-    sendFiles.push({path: file.path, name: file.name, data: file.data || file.code});
+    sendFiles.push({path: file.path, data: file.data || file.code});
   }, true);
 
 
