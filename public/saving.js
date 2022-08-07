@@ -23,8 +23,6 @@ function save() {
   renderFiles();
 }
 
-
-
 function load() {
   let state = JSON.parse(localStorage.getItem("state"));
   if (state == null) return;
@@ -43,4 +41,22 @@ function load() {
   editors[1].opened = state.editors[1].opened;
 
   renderFiles();
+}
+
+
+
+
+async function serverSave() {
+  let val = fetch("api/uploadFiles", {
+    method: "POST",
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      a: 3
+    })
+  });
+
+  console.log(val);
+}
+function serverLoad() {
+
 }
