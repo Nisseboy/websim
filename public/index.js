@@ -1,3 +1,10 @@
+let uuid = getCookie("uuid");
+if (!uuid) {
+  uuid = createUUID();
+  setCookie("uuid", uuid);
+}
+
+
 //CodeMirror stuff
 let editors = [
   new CodeEditor(0),
@@ -42,10 +49,39 @@ load();
 
 
 
-window.addEventListener("beforeunload", (e) => {
-  if (!saved) {
-    let answer = confirm("You have unsaved progress, save? (save: ok, don't save: cancel)");
-    if (answer)
-      save();
+
+
+
+function createUUID(){
+  let dt = new Date().getTime();
+  let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    let r = (dt + Math.random()*16)%16 | 0;
+    dt = Math.floor(dt/16);
+    return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+  });
+  return uuid;
+}
+
+
+//From W3Schools
+function setCookie(cname, cvalue) {
+  const d = new Date();
+  d.setTime(d.getTime() + 864000000); //10 days
+  let expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
   }
-});
+  return "";
+}

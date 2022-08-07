@@ -45,7 +45,6 @@ function load() {
 
 
 
-
 async function serverSave() {
   let sendFiles = [];
   root.iterate(file=>{
@@ -70,15 +69,5 @@ async function serverSave() {
 
   console.log(res);
 }
-async function cmd(command) {
-  res = await fetch(window.location.origin + "/api/runDBCommand", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      command: command
-    })
-  }).then(a=>a.text());
-  return res;
+function serverLoad() {
 }
