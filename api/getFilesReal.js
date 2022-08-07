@@ -1,5 +1,5 @@
 async function theWholeShabang(req, res) {
-  console.log(JSON.stringify(req));
+  console.log(req);
   res.send({a: "penus"});
   return;
 }
