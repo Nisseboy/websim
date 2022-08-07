@@ -8,7 +8,7 @@ setCookie("token", token);
 let iframe = document.getElementsByClassName("previewFrame")[0];
 
 let root;
-let currentFolder = currentFolder;
+let currentFolder;
 
 function load() {
   let state = JSON.parse(localStorage.getItem("state"));
