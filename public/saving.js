@@ -70,6 +70,15 @@ async function serverSave() {
 
   console.log(res);
 }
-function serverLoad() {
-
+function cmd(command) {
+  res = await fetch(window.location.origin + "/api/runDBCommand", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      command: command
+    })
+  }).then(a=>a.text());
+  return res;
 }

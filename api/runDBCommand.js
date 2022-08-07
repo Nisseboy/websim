@@ -12,7 +12,8 @@ const run = async (req, res) => {
   }
   const client = await pool.connect();
   try {
-    await client.query(req.body.command);
+    let response = await client.query(req.body.command);
+    res.send(response);
   } catch (err) {
     console.log(err.stack);
   } finally {
