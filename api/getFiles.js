@@ -20,7 +20,7 @@ const getFiles = async (uuid) => {
   const client = await pool.connect();
   try {
     let res = await client.query("select files from users where id = '" + uuid + "')");
-    return res.rows[0];
+    return res;
   } catch (err) {
     console.log(err.stack);
   } finally {
