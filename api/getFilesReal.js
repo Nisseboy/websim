@@ -63,5 +63,5 @@ app.get("/previewServer/*", (req, res) => {
 
 
 module.exports = async (req, res) => {
-  theWholeShabang();
+  theWholeShabang(req, res);
 }
