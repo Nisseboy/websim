@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+
+    <title>WebSim</title>
+
+    <link rel="stylesheet" href="lib/codemirror.css">
+    <link rel="stylesheet" href="lib/one-dark.css">
+    <link rel="stylesheet" href="lib/scroll/simplescrollbars.css">
+    <link rel="stylesheet" href="lib/hint/show-hint.css">
+    <link rel="stylesheet" href="lib/fold/foldgutter.css">
+
+    <script src="lib/codemirror.js"></script>
+
+    <script src="lib/sublime.js" charset="utf-8"></script>
+
+    <script src="lib/syntax-highlighting/css.js" charset="utf-8"></script>
+    <script src="lib/syntax-highlighting/javascript.js" charset="utf-8"></script>
+    <script src="lib/syntax-highlighting/xml.js" charset="utf-8"></script>
+    <script src="lib/syntax-highlighting/htmlmixed.js" charset="utf-8"></script>
+
+    <script src="lib/scroll/simplescrollbars.js" charset="utf-8"></script>
+
+    <script src="lib/edit/matchbrackets.js" charset="utf-8"></script>
+    <script src="lib/edit/closebrackets.js" charset="utf-8"></script>
+    <script src="lib/edit/matchtags.js" charset="utf-8"></script>
+    <script src="lib/edit/closetag.js" charset="utf-8"></script>
+
+    <script src="lib/fold/foldcode.js"></script>
+    <script src="lib/fold/foldgutter.js"></script>
+    <script src="lib/fold/brace-fold.js"></script>
+    <script src="lib/fold/xml-fold.js"></script>
+    <script src="lib/fold/markdown-fold.js"></script>
+    <script src="lib/fold/comment-fold.js"></script>
+    <script src="lib/fold/indent-fold.js"></script>
+
+    <script src="lib/search/match-highlighter.js" charset="utf-8"></script>
+
+    <script src="lib/hint/show-hint.js"></script>
+    <script src="lib/hint/javascript-hint.js"></script>
+    <script src="lib/hint/html-hint.js"></script>
+    <script src="lib/hint/css-hint.js"></script>
+    <script src="lib/hint/xml-hint.js"></script>
+
+    <script src="lib/emmetio.js"></script>
+
+    <script defer src="saving.js" charset="utf-8"></script>
+    <script defer src="CodeEditor.js" charset="utf-8"></script>
+    <script defer src="Files.js" charset="utf-8"></script>
+    <script defer src="index.js" charset="utf-8"></script>
+    <script defer src="split.js" charset="utf-8"></script>
+    <script defer src="preview.js" charset="utf-8"></script>
+    <script defer src="contextMenu.js" charset="utf-8"></script>
+    <script defer src="templates.js" charset="utf-8"></script>
+    <script defer src="console.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div class="flexRow">
+      <div class="hierarchy"></div>
+      <div class="split vertical"></div>
+      <div class="rightside">
+        <div class="rightup">
+          <div class="splitview left" id="splitview-left">
+            <div class="open"></div>
+            <div class="code">
+              <textarea id="codemirror1"></textarea>
+            </div>
+          </div>
+          <div class="split vertical"></div>
+          <div class="splitview right" id="splitview-right">
+            <div class="open"></div>
+            <div class="code">
+              <textarea id="codemirror2"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="split horizontal"></div>
+        <div class="rightdown">
+          <div class="frameHolder">
+            <div class="frameInfo">
+              <div class="frameButtons">
+                <button class="frameButton" onclick="togglePreview(this)">Start</button>
+                <button class="frameButton" onclick="iframe.requestFullscreen()">Fullscreen</button>
+              </div>
+              <div class="frameTitle">Name of project</div>
+            </div>
+            <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+              <iframe id="previewFrame" src=""></iframe>
+            </div>
+          </div>
+          <div class="split vertical"></div>
+          <div class="consoleHolder">
+            <div class="consoleInfo">
+              <div class="consoleTitle">Console</div>
+              <button class="consoleClear" onclick="consoleClear()">Clear</button>
+            </div>
+            <div class="console"></div>
+            <div class="consoleInput"><textarea id="consoleInput"></textarea></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="fileDrop" class="fileDrop hidden">
+      <button class="closeFileDrop" onclick="this.parentElement.classList.add('hidden'); event.stopPropagation()">X</button>
+      <div class="fileDropText">
+        Drag and drop files to upload here (or click)
+      </div>
+    </div>
+  </body>
+</html>

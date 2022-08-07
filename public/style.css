@@ -1,0 +1,391 @@
+:root {
+  --background: #21252B;
+  --foreground: #282c34;
+  --text: #E8EAED;
+  font-family: Georgia;
+  user-select: none;
+}
+
+html, body {
+  margin: 0px;
+  height: 100%;
+
+  overflow: hidden;
+
+  background-color: var(--background);
+}
+
+.flexRow {
+  display: flex;
+  flex-direction: row;
+
+  width: 100%;
+  height: 100%;
+}
+
+.hierarchy {
+  width: 20%;
+  height: 100%;
+}
+
+.rightside {
+  flex: 1 1 auto;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+.rightup {
+  width: 100%;
+  height: 50%;
+
+  display: flex;
+  flex-direction: row;
+}
+.rightdown {
+  width: 100%;
+  flex: 1 1 auto;
+
+  display: flex;
+  flex-direction: row;
+
+  z-index: 1;
+}
+
+.open {
+  height: 1.2em;
+  display: flex;
+
+  z-index: 1;
+}
+
+.code {
+  height: 100%;
+  flex: 1 1 auto;
+  max-width: 100%;
+
+  position: relative;
+}
+
+.splitview {
+  display: flex;
+  flex-direction: column;
+}
+.splitview.left {
+  width: 75%;
+}
+.splitview.right {
+  flex: 1 1 auto;
+}
+
+
+.split {
+  background-color: gray;
+  user-select: none;
+  z-index: 1;
+}
+.split.vertical {
+  width: 0.2em;
+  height: 100%;
+
+  cursor: col-resize;
+}
+.split.horizontal {
+  width: 100%;
+  height: 0.2em;
+
+  cursor: row-resize;
+}
+
+
+.hierarchyBase {
+  width: 100%;
+
+  background-color: inherit;
+  border: 0;
+  color: var(--text);
+}
+.hierarchyBase:hover {
+  color: red;
+}
+.hierarchyInfo {
+  width: 100%;
+  height: 1.5em;
+
+  border: 0;
+
+  user-select: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+
+  position: relative;
+}
+.hierarchyInfoIcon {
+  height: 100%;
+  width: auto;
+
+  transition-duration: 0.2s;
+
+  user-select: none;
+
+  margin-right: 5px;
+}
+.hierarchyInfoArrow {
+  position: absolute;
+  left: -1.2em;
+}
+.hierarchyHolder {
+  background-color: var(--background);
+}
+
+.openBase {
+  height: 100%;
+  width: 100%;
+  max-width: 200px;
+
+  background-color: var(--foreground);
+  color: var(--text);
+
+  border: 0;
+  border-right: 0.5px outset black;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+}
+.openBase:hover {
+  color: red;
+}
+.openBase:hover > .openRemove {
+  display: block;
+}
+.openRemove {
+  background-color: inherit;
+  border: 0;
+
+  cursor: pointer;
+
+  position: absolute;
+  right: 0;
+
+  display: none;
+  color: var(--text);
+}
+.openRemove:hover {
+  color: red;
+}
+
+
+
+.frameHolder {
+  width: 35.05%;; /*square when 16/9*/
+  height: 100%;
+}
+.frameInfo {
+  width: 100%;
+  height: 1.2em;
+  background-color: var(--foreground);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.frameButtons {
+  display: flex;
+}
+.frameButton {
+  background-color: var(--background);
+  color: var(--text);
+
+  height: 100%;
+
+  border: 0;
+  border-right: 1px outset black;
+
+  cursor: pointer;
+  transition-duration: 0.2s;
+}
+.frameButton:hover {
+  color: red;
+}
+.frameTitle {
+  color: var(--text);
+  margin-right: 5px;
+}
+#previewFrame {
+  width: calc(100% - 8em);
+  height: calc(100% - 8em);
+}
+
+
+.consoleHolder {
+  flex: 1 1 auto;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+}
+.consoleInfo {
+  width: 100%;
+  height: 1.2em;
+
+  background-color: var(--foreground);
+  color: var(--text);
+
+  display: flex;
+  justify-content: space-between;
+}
+.consoleTitle {
+  margin-left: 5px;
+}
+.consoleClear {
+  background-color: var(--background);
+  color: var(--text);
+  cursor: pointer;
+  border: 0;
+}
+.consoleClear:hover {
+  color: red;
+}
+.console {
+  flex: 1 1 auto;
+  background-color: var(--background);
+
+  max-height: calc(100% - 3.2em);
+  overflow-y: auto;
+
+  position: absolute;
+  left: 0;
+  top: 1.2em;
+
+  width: 100%;
+}
+.consoleInput {
+  background-color: var(--foreground);
+  width: 100%;
+  min-height: 2em;
+
+  position: absolute;
+  bottom: 0;
+}
+.cm-console {
+  position: relative !important;
+}
+.consoleCommand {
+  width: 100%;
+  min-height: 1.9em;
+  border-bottom: 1px ridge gray;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.commandIcon {
+  height: 1.5em;
+  width: 1.5em;
+}
+.commandText {
+  color: var(--text);
+}
+.consoleCommand.warn {
+  color: #F5BC38;
+  background-color: #332B00;
+}
+.consoleCommand.error {
+  color: #DF3A3D;
+  background-color: #1F0000;
+}
+
+
+
+.contextMenu {
+  position: absolute;
+  background-color: #292A2D;
+  border: 1px ridge #3C4043;
+
+  display: flex;
+  flex-direction: column;
+
+  z-index: 10;
+}
+.contextButton {
+  background-color: inherit;
+  color: var(--text);
+
+  border: 0;
+  width: 100%;
+
+  text-align: left;
+}
+.contextButton:hover {
+  background-color: #4B4C4F;
+}
+
+
+.fileDrop {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+
+  width: 50%;
+  height: 50%;
+
+  border: 5px solid black;
+
+  background: var(--background);
+
+  z-index: 20;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--text);
+}
+.fileDrop.hovering {
+  color: red;
+}
+.fileDropText {
+  font-size: 30px;
+  color: inherit;
+  height: 0;
+}
+.closeFileDrop {
+  font-size: 30px;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  background-color: var(--foreground);
+  border: 0;
+
+  color: red;
+}
+.closeFileDrop:hover {
+  color: green;
+}
+
+
+.rotated {
+  transform: rotate(90deg);
+}
+.selected {
+  background-color: darkred;
+}
+.hidden {
+  display: none;
+}
+.unsaved {
+  color: blue;
+}
+
+.bg-blue {
+  background: blue;
+}
