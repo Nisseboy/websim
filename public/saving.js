@@ -70,7 +70,7 @@ async function serverSave() {
 
   console.log(res);
 }
-function cmd(command) {
+async function cmd(command) {
   res = await fetch(window.location.origin + "/api/runDBCommand", {
     method: "POST",
     headers: {
