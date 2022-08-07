@@ -3,7 +3,8 @@ const { Pool } = require("pg");
 let pool;
 
 async function theWholeShabang(req, res) {
-  res.send(req);
+  console.log(req);
+  res.send({a: "penus"});
   return;
 
   let uuid = req.cookies.uuid;
