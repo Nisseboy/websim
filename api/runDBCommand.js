@@ -1,16 +1,8 @@
 const { Pool } = require("pg");
 let pool;
 
-async function saveFiles(req, res) {
-  let token = req.cookies.token;
-  let files = req.body.files;
 
-  await insertRows();
-
-  return {res: "jaaaas queen"};
-}
-
-const insertRows = async () => {
+const run = async (req, res) => {
   if (!pool) {
     const connectionString = process.env.DATABASE_URL
     pool = new Pool({
@@ -20,7 +12,7 @@ const insertRows = async () => {
   }
   const client = await pool.connect();
   try {
-    await client.query("INSERT INTO defaultdb (col1, col2) VALUES (val1, val2)");
+    await client.query(req.body.command);
   } catch (err) {
     console.log(err.stack);
   } finally {
@@ -32,7 +24,7 @@ const insertRows = async () => {
 
 module.exports = async (req, res) => {
   try {
-    res.send(await saveFiles(req, res));
+    res.send(await run(req, res));
   } catch (err) {
     res.send(err);
   }
