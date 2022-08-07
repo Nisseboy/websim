@@ -69,5 +69,8 @@ async function serverSave() {
 
   console.log(res);
 }
-function serverLoad() {
+async function serverLoad() {
+  res = await fetch(window.location.origin + "/api/getFiles").then(a=>a.json());
+
+  return res;
 }
