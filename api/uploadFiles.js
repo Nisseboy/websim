@@ -1,5 +1,5 @@
 async function saveFiles(req, res) {
-  res.send(req.body);
+  return [req.body, req.cookies];
 }
 
 

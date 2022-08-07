@@ -49,12 +49,12 @@ function load() {
 async function serverSave() {
   let sendFiles = [];
   root.iterate(file=>{
-    file.path = file.path.split("/");
-    file.path.shift();
-    file.path.shift();
-    file.path = file.path.join("/");
+    localPath = file.path.split("/");
+    localPath.shift();
+    localPath.shift();
+    localPath = localPath.join("/");
 
-    sendFiles.push({path: file.path, data: file.data || file.code});
+    sendFiles.push({fullPath: file.path, localPath: localPath, data: file.data || file.code});
   }, true);
 
 
