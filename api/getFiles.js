@@ -4,7 +4,7 @@ let pool;
 async function saveFiles(req) {
   let uuid = req.cookies.uuid;
 
-  let response = await insertRows(uuid);
+  let response = await getFiles(uuid);
 
   return {res: response};
 }

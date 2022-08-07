@@ -72,5 +72,5 @@ async function serverSave() {
 async function serverLoad() {
   res = await fetch(window.location.origin + "/api/getFiles").then(a=>a.json());
 
-  return res;
+  console.log(res);
 }
