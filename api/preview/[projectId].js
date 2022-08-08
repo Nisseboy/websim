@@ -1,6 +1,6 @@
 async function getFiles(projectId) {
   console.log(projectId);
-  return res.send({a: projectId});
+  return {a: projectId};
 }
 
 module.exports = async (req, res) => {
