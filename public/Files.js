@@ -298,7 +298,7 @@ function changeFile(file, edd = currentEditor) {
     editors[edd].setValue(file.tempCode);
 
   let suffix = getSuffix(file.name);
-  editors[edd].setMode((suffix == "html")?"htmlmixed":(suffix == "js")?"javascript":"css");
+  editors[edd].setMode((suffix == "html")?"text/html":(suffix == "js")?"javascript":"css");
 
   addOpen(file, edd);
 

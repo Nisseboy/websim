@@ -10,7 +10,7 @@ class CodeEditor {
       lineNumbers: true,
       matchBrackets: true,
       theme: "one-dark",
-      mode: {name: "javascript", globalVars: true},
+      mode: {name: "text/html", globalVars: true},
       keyMap: "sublime",
       tabSize: 2,
       autoCloseBrackets: true,
@@ -49,7 +49,7 @@ class CodeEditor {
       if (input.text[0] === ";" || input.text[0] === " ") {
         return;
       }
-      if (editor.options.mode == "htmlmixed") {
+      if (editor.options.mode == "text/html" || editor.options.mode == "css") {
 
       } else {
         editor.showHint({

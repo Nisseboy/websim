@@ -63,27 +63,7 @@ async function startPreview() {
   replaceFileNames(fileList.html, fileList.css);
   replaceFileNames(fileList.html, fileList.js);
 
-  let sendFiles = [];
-  folder.iterate(file=>{
-    file.path = file.path.split("/");
-    file.path.shift();
-    file.path.shift();
-    file.path = file.path.join("/");
-
-    sendFiles.push({path: file.path, data: file.data || file.code});
-  }, true);
-
-
-  await fetch(window.location.origin + "/uploadFiles", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      files: sendFiles,
-      token: token
-    })
-  });
+  
 
   iframe.src = window.location.origin + "/previewServer/index.html";
 }

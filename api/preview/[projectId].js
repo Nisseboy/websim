@@ -1,6 +1,6 @@
-async function getFiles(projectId) {
-  console.log(projectId);
-  return {a: projectId};
+async function getFiles(uuid) {
+  console.log(uuid);
+  return {a: uuid};
 }
 
 module.exports = async (req, res) => {
