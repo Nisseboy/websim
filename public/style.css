@@ -61,15 +61,15 @@ html, body {
 
 .code {
   height: 100%;
-  flex: 1 1 auto;
-  max-width: 100%;
 
-  position: relative;
+  flex: 1 1 auto;
 }
 
 .splitview {
   display: flex;
   flex-direction: column;
+
+  position: relative;
 }
 .splitview.left {
   width: 75%;
