@@ -18,10 +18,7 @@ function createUUID() {
 
 //From W3Schools
 function setCookie(cname, cvalue) {
-  const d = new Date();
-  d.setTime(d.getTime() + 864000000); //10 days
-  let expires = "expires="+ d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  document.cookie = cname + "=" + cvalue + "; expires=Tue, 10 Jan 2038 00:00:00 GMT; path=/";
 }
 function getCookie(cname) {
   let name = cname + "=";

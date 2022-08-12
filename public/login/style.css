@@ -1,0 +1,50 @@
+:root {
+  --background: #21252B;
+  --foreground: #282c34;
+  --text: #E8EAED;
+  font-family: Georgia;
+  color: var(--text);
+  user-select: none;
+}
+
+html, body {
+  margin: 0px;
+  height: 100%;
+
+  overflow: hidden;
+
+  background-color: var(--background);
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.loginContainer {
+  width: 20rem;
+  height: 50%;
+}
+
+.textInput {
+  width: 100%;
+}
+
+.buttonInput {
+  width: 100%;
+}
+
+
+
+.flexrow {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.flexcol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
