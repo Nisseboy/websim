@@ -3,19 +3,20 @@ const cookieParser = require("cookie-parser");
 const expressValidator = require('express-validator');
 const app = express();
 const port = 8080;
-
 const path = require("path");
 
-const fs = require("fs");
+require('dotenv').config();
 
+const fs = require("fs");
 const pg = require("pg");
 
 const DBTOKEN = process.env.DBTOKEN;
-console.log(DBTOKEN);
 
-const client = new pg.Client();
+const client = new pg.Client(DBTOKEN);
 client.connect();
 client.query("CREATE TABLE IF NOT EXISTS users (username STRING PRIMARY KEY, password STRING, files STRING);");
+
+
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
