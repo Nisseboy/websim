@@ -13,6 +13,7 @@ require('dotenv').config();
 
 const fs = require('fs');
 const pg = require('pg');
+const sqlEsc = require('sqlutils/pg').escape;
 
 const crypto = require('crypto');
 
@@ -28,7 +29,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(upload.array());
 
-app.get('/edit', async (req, res) => {
+app.get('/*/edit', async (req, res) => {
   let token = req.cookies.token;
   let username = req.cookies.username;
 
@@ -54,7 +55,7 @@ app.post('/postlogin', async (req, res) => {
 
   if (!(username && password)) {res.redirect('login?err=Please fill in all fields'); return}
 
-  let response = await client.query(`SELECT * FROM users WHERE username='${username}';`);
+  let response = await client.query(`SELECT * FROM users WHERE username='${sqlEsc(username)}';`);
   if (response.rows.length == 0) {res.redirect('login?err=No such user'); return}
   let user = response.rows[0];
 
@@ -68,7 +69,7 @@ app.post('/postlogin', async (req, res) => {
   setCookie(res, 'token', token);
   setCookie(res, 'username', username);
 
-  await client.query(`UPDATE users SET tokens = '${user.tokens + ',' + hashedToken}' WHERE username = '${username}'`);
+  await client.query(`UPDATE users SET tokens = '${sqlEsc(user.tokens) + ',' + hashedToken}' WHERE username = '${sqlEsc(username)}'`);
 
   await client.query(``);
 
@@ -82,7 +83,7 @@ app.post('/postsignup', async (req, res) => {
   if (!(username && password && password2)) {res.redirect('signup?err=Please fill in all fields'); return};
   if (password != password2) {res.redirect('signup?err=Passwords do not match'); return};
 
-  let response = await client.query(`SELECT * FROM users WHERE username='${username}';`);
+  let response = await client.query(`SELECT * FROM users WHERE username='${sqlEsc(username)}';`);
   if (response.rows.length > 0) {res.redirect('signup?err=Username already exists'); return};
 
   let salt = getSalt();
@@ -90,7 +91,7 @@ app.post('/postsignup', async (req, res) => {
   let token = getToken();
   let hashedToken = getHash(token + salt);
 
-  await client.query(`INSERT INTO users(username, password, salt, tokens, files) VALUES ('${username}', '${hash}', '${salt}', '${hashedToken}', '');`);
+  await client.query(`INSERT INTO users(username, password, salt, tokens, files) VALUES ('${sqlEsc(username)}', '${hash}', '${salt}', '${hashedToken}', '');`);
 
   setCookie(res, 'token', token);
   setCookie(res, 'username', username);
@@ -99,7 +100,7 @@ app.post('/postsignup', async (req, res) => {
 });
 
 async function validateToken(username, token) {
-  let user = await client.query(`SELECT * FROM users WHERE username = '${username}'`);
+  let user = await client.query(`SELECT * FROM users WHERE username = '${sqlEsc(username)}'`);
   if (user.rows.length == 0) return;
 
   let hashedToken = getHash(token + user.rows[0].salt);
