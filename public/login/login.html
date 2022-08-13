@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>WebSim</title>
+    <link rel="stylesheet" href="login/style.css">
+  </head>
+  <body class="flexcol">
+    <form class="loginContainer flexcol" action="/postlogin" method="post" target="_top">
+      <input placeholder="Username"         class="textInput"          name="username"                  autocomplete="username">
+      <input placeholder="Password"         class="textInput password" name="password"  type="password" autocomplete="password">
+      <input type="submit" class="buttonInput" id="login" value="Log in"></input>
+    </form>
+
+    <a href="/signup">
+      <button class="otherButton">Sign up instead</button>
+    </a>
+    <div class="error"></div>
+    <script src="login/index.js" charset="utf-8"></script>
+  </body>
+</html>
