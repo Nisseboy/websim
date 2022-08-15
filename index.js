@@ -226,8 +226,8 @@ async function validateToken(username, token) {
 
 
 
-app.listen(port, () => {
-  console.log(`listening at http://localhost:${port}`);
+app.listen(process.env.PORT || port, () => {
+  console.log(`listening at http://localhost:${process.env.PORT || port}`);
 });
 
 
