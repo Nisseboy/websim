@@ -1,4 +1,7 @@
-function save() {
+let owner = document.location.pathname.split("/")[2];
+document.cookie = `owner=${owner};path=/`;
+
+function ssave() {
   root.iterate(file=>{
     file.code = file.tempCode;
     file.saved = true;
@@ -23,7 +26,7 @@ function save() {
   renderFiles();
 }
 
-function load() {
+function sload() {
   let state = JSON.parse(localStorage.getItem("state"));
   if (state == null) return;
 
@@ -45,26 +48,52 @@ function load() {
 
 
 
-async function serverSave() {
-  let sendFiles = [];
+async function save() {
   root.iterate(file=>{
-    sendFiles.push({path: file.path, data: file.data || file.code});
-  }, true);
+    file.code = file.tempCode;
+    file.saved = true;
+  });
 
+  let sendFiles = root.simplify();
 
-  await fetch(window.location.origin + "/postFiles", {
+  let res = await fetch(window.location.origin + "/postfiles/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      files: sendFiles,
-      uuid: uuid
+      root: sendFiles
     })
-  });
-}
-async function serverLoad() {
-  res = await fetch(window.location.origin + "/getFiles").then(a=>a.json());
+  }).then(a=>a.json());
 
-  return res;
+  if (res.status != "ok") {
+    popup(res.status, 1000);
+    if (res.status == "Not logged in") {
+      requestLogin();
+    }
+  }
+
+  renderFiles();
+}
+async function load() {
+  res = await fetch(window.location.origin + "/getFiles/").then(a=>a.json());
+
+  console.log(res.status);
+
+  if (res.status == "No files") {
+    root = new Files("ROOT").addChildren([
+      new Files("testProj").addChildren([
+        new Files("index.html", ""),
+        new Files("index.js", ""),
+        new Files("style.css", ""),
+      ])
+    ]);
+  } else if (res.status == "No such user") {
+    popup("That user does not exist", 10000);
+
+    return;
+  }
+
+
+  renderFiles();
 }

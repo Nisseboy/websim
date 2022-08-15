@@ -49,6 +49,7 @@
     <script src="lib/@emmetio/codemirror-plugin/dist/browser.js"></script>
   </head>
   <body>
+    <div class="notLoggedIn" onclick="requestLogin()">You need to log in</div>
     <div class="flexRow">
       <div class="hierarchy"></div>
       <div class="split vertical"></div>
@@ -100,6 +101,17 @@
         Drag and drop files to upload here (or click)
       </div>
     </div>
+    <div class="loginDim" onclick="hideLogin()"></div>
+    <form class="loginContainer" action="javascript:void(0);">
+      <input placeholder="Username"         class="loginTextInput"                   id="username"                  autocomplete="username">
+      <input placeholder="Password"         class="loginTextInput loginPassword"     id="password1" type="password" autocomplete="password">
+      <input placeholder="Confirm Password" class="loginTextInput loginPassword two" id="password2" type="password" autocomplete="new-password" disabled>
+      <button class="loginButton" id="loginButton"       onclick="login()"      >Log in</button>
+      <button class="loginButton" id="loginSwitch" onclick="switchLogin()">Sign up instead</button>
+      <div class="loginError"></div>
+    </form>
+
+    <div class="popupHolder"></div>
 
     <script src="user.js" charset="utf-8"></script>
     <script src="saving.js" charset="utf-8"></script>

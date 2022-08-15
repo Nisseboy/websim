@@ -15,12 +15,17 @@ html, body {
   background-color: var(--background);
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+}
+
 .flexRow {
   display: flex;
   flex-direction: row;
 
   width: 100%;
-  height: 100%;
+  flex: 1 1 auto;
 }
 
 .hierarchy {
@@ -370,6 +375,99 @@ html, body {
 }
 .closeFileDrop:hover {
   color: green;
+}
+
+
+.notLoggedIn {
+  width: 100%;
+  height: 1.2em;
+  background-color: yellow;
+
+  text-align: center;
+
+  cursor: pointer;
+
+  display: none;
+}
+.loginContainer {
+  position: absolute;
+  top: calc(50% - 10em);
+  left: calc(50% - 10em);
+
+  width: 20em;
+  height: 20em;
+
+  background-color: var(--foreground);
+  border: 2px solid red;
+
+  z-index: 10;
+  display: none;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.loginTextInput {
+  width: 50%;
+}
+.loginPassword {
+
+}
+.loginPassword.two {
+
+}
+.loginButton {
+  width: 50%;
+  cursor: pointer;
+}
+#loginSwitch {
+  background-color: inherit;
+  border: 0;
+  color: var(--text);
+}
+.loginDim {
+  width: 100vw;
+  height: 100vh;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  z-index: 9;
+
+  background-color: rgb(0 0 0 / 0.5);
+  display: none;
+}
+.loginError {
+  color: red;
+}
+
+
+.popupHolder {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 7.5em);
+
+  width: 15em;
+  height: 2em;
+
+  background-color: var(--background);
+  color: var(--text);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 2px solid red;
+  border-top: 0;
+  border-radius: 0 0 0.5em 0.5em;
+
+  transform-origin: top;
+  transform: scaleY(0);
+
+  transition-duration: 0.2s;
+
+  z-index: 10;
 }
 
 

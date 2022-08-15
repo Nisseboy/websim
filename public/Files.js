@@ -60,6 +60,23 @@ class Files {
       this.tempCode = this.code + 1;
   }
 
+  simplify() {
+    let simple = {};
+
+    simple.name = this.name;
+    simple.code = this.code;
+    simple.data = this.data;
+    simple.path = this.path;
+
+    simple.children = [];
+    for (let i in this.children) {
+      let file = this.children[i];
+      simple.children.push(file.simplify());
+    }
+
+    return simple;
+  }
+
   onClick(e) {
     let elem = this.hierarchyElement;
     if (this.isFolder) {
@@ -294,7 +311,7 @@ function changeFile(file, edd = currentEditor) {
   selectedFolder = file.path.split("/")[1];
   document.getElementsByClassName("frameTitle")[0].innerText = selectedFolder;
 
-  if (editors[edd].getValue() != file.code)
+  if (editors[edd].getValue() != file.tempCode)
     editors[edd].setValue(file.tempCode);
 
   let suffix = getSuffix(file.name);

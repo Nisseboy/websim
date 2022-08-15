@@ -23,16 +23,20 @@ document.addEventListener("keydown", e=>{
 });
 
 
-let root = new Files("ROOT").addChildren([
-  new Files("testProj").addChildren([
-    new Files("index.html", ""),
-    new Files("index.js", ""),
-    new Files("style.css", ""),
-  ])
-]);
-
-rectify();
-
-changeFile(root.children[0].children[1]);
+let root;
 
 load();
+
+
+
+
+
+function popup(text, time) {
+  let popupElem = document.getElementsByClassName("popupHolder")[0];
+
+  popupElem.innerText = text;
+  popupElem.style.transform = "scaleY(1)";
+  setTimeout(()=>{
+    popupElem.style.transform = "scaleY(0)";
+  }, time);
+}
