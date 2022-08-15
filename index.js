@@ -30,15 +30,15 @@ app.use(express.json());
 app.use(upload.array());
 app.use(compression());
 
-//Add trailing slash
-// app.use((req, res, next) => {
-// 	if (req.path.substr(-1) != '/' && req.path.length > 1 && req.path.split('/')[1] != 'fileServer') {
-// 		const query = req.url.slice(req.path.length);
-// 		res.redirect(301, req.path + '/' + query);
-// 	} else {
-// 		next();
-// 	}
-// })
+// Remove trailing slash
+app.use((req, res, next) => {
+	if (req.path.substr(-1) == '/' && req.path.length > 1) {
+		const query = req.url.slice(req.path.length)
+		res.redirect(301, req.path.slice(0, -1) + query)
+	} else {
+		next()
+	}
+})
 
 
 app.post('/postlogin', (req, res) => {
@@ -74,7 +74,6 @@ app.get('/', (req, res) => {
 	}
 });
 app.get('/user/*', async (req, res) => {
-	console.log(req.path);
   let fpath = req.path.split('/');
 
   fpath.shift();
@@ -86,6 +85,7 @@ app.get('/user/*', async (req, res) => {
   res.sendFile(path.join(__dirname, 'public', fpath));
 });
 
+let consoleInject = "<script type=\"text/javascript\">  function sendup(text, method) {    window.parent.parent.postMessage({      text: text,      method: method    }, \"*\");  }    let oldL = console.log;  console.log = (...args) => {oldL(...args); sendup(args.join(\" \"), \"log\")};  let oldW = console.warn;  console.warn = (...args) => {oldW(...args); sendup(args.join(\" \"), \"warn\")};  let oldE = console.error;  console.error = (...args) => {oldE(...args); sendup(args.join(\" \"), \"error\")};</script>";
 app.get('/fileServer/*', async (req, res) => {
 	let owner = req.cookies.owner;
 	let fpath = req.path.split('/');
@@ -102,6 +102,8 @@ app.get('/fileServer/*', async (req, res) => {
 	let file = fromPath(files, fpath);
 	if (file.data)
 		file.code = file.data;
+	if (file.name == 'index.html')
+		file.code = consoleInject + file.code;
 	if (file.code !== 1) {
 		res.setHeader('content-type', mime.lookup(file.name));
 		res.send(file.code);
