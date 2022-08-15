@@ -38,6 +38,8 @@
     <script src="lib/fold/comment-fold.js"></script>
     <script src="lib/fold/indent-fold.js"></script>
 
+    <script src="lib/comment/comment.js"></script>
+
     <script src="lib/search/match-highlighter.js" charset="utf-8"></script>
 
     <script src="lib/hint/show-hint.js"></script>
@@ -110,8 +112,12 @@
       <button class="loginButton" id="loginSwitch" onclick="switchLogin()">Sign up instead</button>
       <div class="loginError"></div>
     </form>
-
     <div class="popupHolder"></div>
+
+    <button class="logoutButton" onclick="logout()">
+      <img class="logoutIcon" src="icons/logout.png">
+    </button>
+    <div class="logoutText"><h1>Logout</h1></div>
 
     <script src="user.js" charset="utf-8"></script>
     <script src="saving.js" charset="utf-8"></script>

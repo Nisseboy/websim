@@ -1,5 +1,6 @@
 let selectedFile;
 let selectedFolder;
+let currentFolder;
 
 
 class Files {
@@ -116,7 +117,7 @@ class Files {
         }},
         {text: "Upload Files", callback: ()=>{
           document.getElementById("fileDrop").classList.remove("hidden");
-          selectedFolder = file.path.split("/")[1];
+          currentFolder = this;
         }}
       ];
     }
@@ -182,7 +183,6 @@ class Files {
 
 function restoreFile(empty) {
   let file = new Files(empty.name, empty.code);
-  file.isExpanded = empty.isExpanded;
   file.data = empty.data;
 
   for (let i in empty.children) {
@@ -313,6 +313,7 @@ function changeFile(file, edd = currentEditor) {
 
   if (editors[edd].getValue() != file.tempCode)
     editors[edd].setValue(file.tempCode);
+  editors[edd].editor.focus();
 
   let suffix = getSuffix(file.name);
   editors[edd].setMode((suffix == "html")?"text/html":(suffix == "js")?"javascript":"css");
@@ -382,9 +383,17 @@ function findNewFile(edd) {
   if (editors[edd].opened.length > 0) {
     changeFile(fromPath(editors[edd].opened[editors[edd].opened.length - 1]), edd);
   } else {
-    editors[edd].currentFile = undefined;
-    editors[edd].preventNext = true;
-    editors[edd].setValue("");
+    let found = false;
+    root.iterate(file=>{
+      if (!found)
+        changeFile(fromPath(file.path), edd);
+      found = true;
+    }, true);
+    if (!found) {
+      editors[edd].currentFile = undefined;
+      editors[edd].preventNext = true;
+      editors[edd].setValue("");
+    }
   }
 }
 
@@ -420,7 +429,7 @@ function uploadFile(files) {
 
       child.unsave();
 
-      selectedFolder.addChild(child);
+      currentFolder.addChild(child);
 
       renderFiles();
     }

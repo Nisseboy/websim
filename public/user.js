@@ -36,8 +36,7 @@ async function login() {
   }).then(a=>a.json());
 
   if (res.status == "ok") {
-    hideLogin();
-    loginAlert.style.display = "none";
+    document.location.href = res.redirect;
     return;
   } else {
     loginError.innerText = res.status;
@@ -65,6 +64,11 @@ function switchLogin() {
   }
 }
 
+
+async function logout() {
+  await fetch(window.location.origin + "/logout/");
+  requestLogin();
+}
 
 async function loginToken() {
 

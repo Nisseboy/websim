@@ -49,16 +49,17 @@ class CodeEditor {
       if (input.text[0] === ";" || input.text[0] === " ") {
         return;
       }
-      if (editor.options.mode == "text/html" || editor.options.mode == "css") {
-
-      } else {
-        editor.showHint({
-          hint: CodeMirror.hint.auto,
-        });
+      if (editor.options.mode == "text/html") {
+        return
       }
+      if (editor.options.mode == "css")
+        editors[0].editor.execCommand("emmetResetAbbreviation");
+      editor.showHint({
+        hint: CodeMirror.hint.auto,
+      });
     });
     this.editor.on("change", (a, b) => {
-      if (this.preventNext) return;
+      if (this.preventNext || !this.currentFile) return;
       let file = fromPath(this.currentFile);
       file.tempCode = this.editor.getValue();
 

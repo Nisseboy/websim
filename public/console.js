@@ -1,3 +1,4 @@
+let consoleInject = "<script type=\"text/javascript\">  function sendup(text, method) {    window.parent.parent.postMessage({      text: text,      method: method    }, \"*\");  }    let oldL = console.log;  console.log = (...args) => {oldL(...args); sendup(args.join(\" \"), \"log\")};  let oldW = console.warn;  console.warn = (...args) => {oldW(...args); sendup(args.join(\" \"), \"warn\")};  let oldE = console.error;  console.error = (...args) => {oldE(...args); sendup(args.join(\" \"), \"error\")};</script>";
 let consoleElem = document.getElementsByClassName("console")[0];
 
 let consoleHistory = {

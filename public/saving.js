@@ -78,8 +78,6 @@ async function save() {
 async function load() {
   res = await fetch(window.location.origin + "/getFiles/").then(a=>a.json());
 
-  console.log(res.status);
-
   if (res.status == "No files") {
     root = new Files("ROOT").addChildren([
       new Files("testProj").addChildren([
@@ -89,11 +87,16 @@ async function load() {
       ])
     ]);
   } else if (res.status == "No such user") {
-    popup("That user does not exist", 10000);
-
+    popup(`User "${owner}" does not exist`, 10000);
+    loginDim.style.display = "block";
+    hideLogin = ()=>{};
     return;
+  } else if (res.status == "ok") {
+    let files = res.files;
+    root = restoreFile(files);
   }
 
 
   renderFiles();
+  findNewFile(0);
 }
