@@ -31,22 +31,22 @@ app.use(upload.array());
 app.use(compression());
 
 //Add trailing slash
-app.use((req, res, next) => {
-	if (req.path.substr(-1) != '/' && req.path.length > 1 && req.path.split('/')[1] != 'fileServer') {
-		const query = req.url.slice(req.path.length);
-		res.redirect(301, req.path + '/' + query);
-	} else {
-		next();
-	}
-})
+// app.use((req, res, next) => {
+// 	if (req.path.substr(-1) != '/' && req.path.length > 1 && req.path.split('/')[1] != 'fileServer') {
+// 		const query = req.url.slice(req.path.length);
+// 		res.redirect(301, req.path + '/' + query);
+// 	} else {
+// 		next();
+// 	}
+// })
 
 
 app.post('/postlogin', (req, res) => {
 	login(req, res);
 });
 app.get('/logout', (req, res) => {
-	setCookie(res, token, '');
-	setCookie(res, username, '');
+	setCookie(res, 'token', '');
+	setCookie(res, 'username', '');
 
 	res.send({status: 'ok'});
 });
@@ -74,15 +74,15 @@ app.get('/', (req, res) => {
 	}
 });
 app.get('/user/*', async (req, res) => {
+	console.log(req.path);
   let fpath = req.path.split('/');
 
-  fpath.shift();
   fpath.shift();
   fpath.shift();
 
   fpath = fpath.join('/');
 
-  if (!fpath) fpath = 'index.html';
+  if (!fpath.includes('.')) fpath = 'index.html';
   res.sendFile(path.join(__dirname, 'public', fpath));
 });
 
@@ -146,7 +146,7 @@ async function login(req, res) {
 
   await client.query('UPDATE users SET tokens = $1 WHERE username = $2', [user.tokens + ',' + hashedToken, username]);
 
-  res.send({status: 'ok', redirect: `/user/${username}/`});
+  res.send({status: 'ok', redirect: `/user/${username}`});
 }
 async function signup(req, res) {
   let username = req.body.username;
@@ -169,7 +169,7 @@ async function signup(req, res) {
   setCookie(res, 'token', token);
   setCookie(res, 'username', username);
 
-  res.send({status: 'ok', redirect: `/user/${username}/`});
+  res.send({status: 'ok', redirect: `/user/${username}`});
 }
 
 async function logintoken(req, res) {

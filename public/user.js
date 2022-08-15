@@ -23,7 +23,7 @@ function hideLogin() {
 async function login() {
   let signup = (password1.autocomplete == "new-password");
 
-  let res = await fetch(window.location.origin + ((!signup)?"/postlogin/":"/postsignup/"), {
+  let res = await fetch(window.location.origin + ((!signup)?"/postlogin":"/postsignup"), {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -66,13 +66,13 @@ function switchLogin() {
 
 
 async function logout() {
-  await fetch(window.location.origin + "/logout/");
+  await fetch(window.location.origin + "/logout");
   requestLogin();
 }
 
 async function loginToken() {
 
-  let res = await fetch(window.location.origin + "/postlogintoken/", {
+  let res = await fetch(window.location.origin + "/postlogintoken", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
