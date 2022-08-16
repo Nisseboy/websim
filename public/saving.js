@@ -56,7 +56,7 @@ async function save() {
 
   let sendFiles = root.simplify();
 
-  let res = await fetch(window.location.origin + "/postfiles/", {
+  let res = await fetch(window.location.origin + "/postfiles", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
