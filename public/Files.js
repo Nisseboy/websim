@@ -150,8 +150,12 @@ class Files {
 
       rectify();
 
-      editors[0].opened = editors[0].opened.join("@@@@").replaceAll(oldPath, this.path).split("@@@@");
-      editors[1].opened = editors[1].opened.join("@@@@").replaceAll(oldPath, this.path).split("@@@@");
+      let a;
+      a = editors[0].opened.join("@@@@").replaceAll(oldPath, this.path);
+      editors[0].opened = (a == "")?[]:a.split("@@@@");
+      a = editors[1].opened.join("@@@@").replaceAll(oldPath, this.path);
+      editors[1].opened = (a == "")?[]:a.split("@@@@");
+
       selectedFile = selectedFile.replace(oldPath, this.path);
 
       renderFiles();
